@@ -1,14 +1,11 @@
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Map_Factory {
-    public Map<String, Integer> Map_Factory(int i){
+    public static Map<String, ArrayList<String>> Map_Factory(int i){
         return switch(i){
-            case 1 -> new HashMap<String, Integer>();
-            case 2 -> new LinkedHashMap<String, Integer>();
-            case 3 -> new TreeMap<String, Integer>();
+            case 1 -> new HashMap<String, ArrayList<String>>();
+            case 2 -> new LinkedHashMap<String, ArrayList<String>>();
+            case 3 -> new TreeMap<String, ArrayList<String>>();
             default -> null;
         };
     }

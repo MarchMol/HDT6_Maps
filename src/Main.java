@@ -1,34 +1,61 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class Main {
-    public static HashMap<String, ArrayList<String>> ola = new HashMap<String, ArrayList<String>>();
+    public static Map<String, ArrayList<String>> mapInventario;
+    public static Map<String, ArrayList<String>> mapColeccion;
     public static void main(String[] args) {
+        View vw = new View();
+        Controller con = new Controller();
+        int fac = vw.MapMenu();
+        mapInventario = Map_Factory.Map_Factory(fac);
+        mapColeccion = Map_Factory.Map_Factory(fac);
         Reader();
-        ArrayList<String> wikiwiki = ola.get("Mueble de terraza\t");
-
-        for(int i = 0; i<wikiwiki.size()-1; i++){
-            System.out.println(wikiwiki.get(i));
-        }
+        int op = 0;
+        do {
+            op = vw.menuMain();
+            switch (vw.menuMain()){
+                case 1: // Agregar Producto
+                    mapColeccion = con.AgregarProducto(mapInventario,mapColeccion);
+                    break;
+                case 2: // Mostrar categoria de un producto
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5: // Mostrar inventario
+                    con.MostrarInventario(mapInventario);
+                    break;
+                case 6: // Mostrar inventarios ordenados
+                    con.MostrarInventarioOrdered(mapInventario);
+                    break;
+                case 7:
+                    con.MostrarInventario(mapColeccion);
+                    break;
+                default:
+            }
+        } while(op!=8);
     }
 
     public static void Reader() {
         String[] a;
-        String pasado = "";
         try (BufferedReader br = new BufferedReader(new FileReader("src/inventario.txt"))) {
-            String line;
-            ArrayList<String> temp = new ArrayList<String>();
+            String line;;
             while ((line = br.readLine()) != null) {
-                a = line.split(" \\|"+ "\t");
-                if(!a[0].equals(pasado)){
-                    temp = new ArrayList<String>();
-                    temp.add(a[1]);
-                    ola.put(a[0],temp);
+                a = line.split(" "+"\\|"+"\t");
+
+                if(mapInventario.containsKey(a[0])){
+                    mapInventario.get(a[0]).add(a[1]);
                 } else{
-                    ola.put(a[0],temp);
+                    ArrayList<String> temp = new ArrayList<String>();
+                    temp.add(a[1]);
+                    mapInventario.put(a[0],temp);
                 }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
