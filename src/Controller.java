@@ -32,20 +32,16 @@ public class Controller {
         return mapColeccion;
     }
 
-    public void MostrarCategoria(Map<String, ArrayList<String>> mapInventario){
+    public String MostrarCategoria(Map<String, ArrayList<String>> mapInventario) {
         View vw = new View();
         String prod = vw.getProducto();
-        if(mapInventario.containsValue(prod)){
-
+        String cat = "";
+        for (String key : mapInventario.keySet()) {
+            if (mapInventario.get(key).contains(prod)) {
+                cat = key;
+            }
         }
-
-    }
-    public void MostrarDatos(){
-
-    }
-
-    public void MostrarDatosOrdered(){ // Ordenados por categoria
-
+        return cat;
     }
 
     public void MostrarInventario(Map<String, ArrayList<String>> mapInventario){
@@ -67,5 +63,4 @@ public class Controller {
         }
         System.out.println("");
     }
-
 }

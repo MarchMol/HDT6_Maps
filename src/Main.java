@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -22,10 +21,19 @@ public class Main {
                     mapColeccion = con.AgregarProducto(mapInventario,mapColeccion);
                     break;
                 case 2: // Mostrar categoria de un producto
+                    String key = con.MostrarCategoria(mapInventario);
+                    if(key!=""){
+                        System.out.println("La categoría del producto es: "+key);
+                    } else{
+                        System.out.println("El producto no fue encontrado.");
+                    }
+                    System.out.println("");
                     break;
                 case 3:
+                    con.MostrarInventario(mapColeccion);
                     break;
                 case 4:
+                    con.MostrarInventarioOrdered(mapColeccion);
                     break;
                 case 5: // Mostrar inventario
                     con.MostrarInventario(mapInventario);
